@@ -1,9 +1,24 @@
 #include <bits/stdc++.h>
 using namespace std;
 //Data types
+class AI_t{
+public:
+	AI_t();
+	~AI_t();
+private:
+	AI_t& operator= (AI_t&);
 
+};
 
 //function prototypes
+//convert given string into an array of int
+vector<int> split_numbers(string rawData);
+//generate random numbers
+const vector<int> gen_num();
+//get input number from user of AI
+vector<int> get_num();
+//returns whether answer contains input numbers and whether they are in right position
+vector<vector<bool>> check_answer(vector<int> input);
 
 
 //function definitions
