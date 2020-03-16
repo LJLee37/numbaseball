@@ -18,45 +18,58 @@ const vector<int> gen_num();
 //get input number from user of AI
 vector<int> get_num();
 //returns whether answer contains input numbers and whether they are in right position
-vector<vector<bool>> check_answer(vector<int> input);
-
+vector<vector<bool>> check_answer(const vector<int>& comNum, vector<int>& input);
+//prints rule of number baseball
+void print_rule();
 
 //function definitions
+void print_rule()
+{
+	cout << "서로 다른 세 개의 0부터 9까지의 숫자 세 개를 입력하여 정답을 맞히면 됩니다." << endl;
+	cout << "해당하는 위치에 해당하는 숫자가 있으면 이를 스트라이크라고 합니다." << endl;
+	cout << "해당하는 위치 외에 해당하는 숫자가 있으면 볼이라고 합니다." << endl;
+	cout << "3스트라이크를 하면 이깁니다. 같은 숫자 세 개를 입력하면 종료합니다." << endl;
+}
+const vector<int> gen_num()
+{
+	srand(time(NULL));
+	vector<int> retval = {rand() % 10, rand() % 10, rand() % 10};
+	while((retval[0] == retval[1]) || ((retval[1] == retval[2]) || (retval[2] == retval[0])))
+	{
+		for(int i = 0; i <= 2; i++)
+		{
+	    	if(i != 2)
+			{	
+				if(retval[i] == retval[i+1])
+			    	retval[i] = rand() % 10;
+			}
+			else
+				if(retval[2] == retval[0])
+		    		retval[i] = rand() % 10;
+		}
+    }
+	return retval;
+}
+vector<int> get_num()
+{
+	cout << "세 개의 숫자를 입력하세요 : ";
+	string tempInput;
+	cin >> tempInput;
+}
 
 
 //main
 int main()
 {
     cout <<"숫자야구입니다."<<endl;
-	cout << "서로 다른 세 개의 0부터 9까지의 숫자 세 개를 입력하여 정답을 맞히면 됩니다." << endl;
-	cout << "해당하는 위치에 해당하는 숫자가 있으면 이를 스트라이크라고 합니다." << endl;
-	cout << "해당하는 위치 외에 해당하는 숫자가 있으면 볼이라고 합니다." << endl;
-	cout << "3스트라이크를 하면 이깁니다. 같은 숫자 세 개를 입력하면 종료합니다." << endl;
-	cout << "숫자는 하나씩 입력하셔야 합니다." << endl;
-	cout << "예) 123 (X) 1 2 3 (O)";
-    while(1)
+	print_rule();
+    cout <<"세 개의 숫자를 생성중입니다..."<<endl;
+	const vector<int> comNum = gen_num();
+    cout << "숫자 생성 완료"<<endl;
+	
+	while(1)
 	{
 		bool exit = false;
-		cout <<"세 개의 숫자를 생성중입니다..."<<endl;
-	    int yourNum[3] = {rand() % 10, rand() % 10, rand() % 10};
-	    while(1)
-	    {
-			if((yourNum[0] != yourNum[1]) && ((yourNum[1] != yourNum[2]) && (yourNum[2] != yourNum[0])))
-	    		break;
-			for(int i = 0; i <= 2; i++)
-			{
-		    	if(i != 2)
-				if(yourNum[i] == yourNum[i+1])
-				    yourNum[i] = rand() % 10;
-		    	else
-					if(yourNum[2] == yourNum[0])
-			    	yourNum[i] = rand() % 10;
-			}
-    	}
-    	int comNum[3];
-    	for(int i = 0; i <= 2; i++)
-			comNum[i] = yourNum[i];
-    	cout << "숫자 생성 완료"<<endl;
     	int attempt = 0;
     	while(1)
     	{
@@ -64,16 +77,16 @@ int main()
     	    for(int i = 0; i<= 2; i++)
 			{
 		    	cout << i+1 << "번째 숫자 : ";
-		    	cin >> yourNum[i];
+		    	//cin >> retval[i];
 			}
-			if((yourNum[0] == yourNum[1]) && (yourNum[1] == yourNum[2]))
+			//if((retval[0] == retval[1]) && (retval[1] == retval[2]))
 				exit = true;
 			if(exit)
 				break;
     	    int strike = 0, ball = 0;
 			for(int i = 0; i <= 2; i++)
 		    	for(int i2 = 0; i2 <= 2; i2++)
-					if(comNum[i] == yourNum[i2])
+			//		if(comNum[i] == retval[i2])
 				    	if(i == i2)
 							strike++;
 		    			else
