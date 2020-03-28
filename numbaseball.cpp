@@ -5,6 +5,8 @@ class AI_t{
 public:
 	AI_t();
 	~AI_t();
+	//get input number from AI
+	vector<int> get_num();
 private:
 	AI_t& operator= (AI_t&);
 
@@ -15,7 +17,7 @@ private:
 vector<int> split_numbers(string rawData);
 //generate random numbers
 const vector<int> gen_num();
-//get input number from user of AI
+//get input number from user
 vector<int> get_num();
 //returns whether answer contains input numbers and whether they are in right position
 vector<vector<bool>> check_answer(const vector<int>& comNum, vector<int>& input);
@@ -54,7 +56,8 @@ vector<int> get_num()
 {
 	cout << "세 개의 숫자를 입력하세요 : ";
 	string tempInput;
-	cin >> tempInput;
+	getline(cin, tempInput);
+	
 }
 
 
@@ -64,33 +67,23 @@ int main()
     cout <<"숫자야구입니다."<<endl;
 	print_rule();
     cout <<"세 개의 숫자를 생성중입니다..."<<endl;
-	const vector<int> comNum = gen_num();
+	const auto comNum = gen_num();
     cout << "숫자 생성 완료"<<endl;
 	
 	while(1)
 	{
-		bool exit = false;
-    	int attempt = 0;
+		auto exit = false;
+    	auto attempt = 0;
     	while(1)
     	{
-    	    cout << "정답을 입력하세요" << endl;
-    	    for(int i = 0; i<= 2; i++)
-			{
-		    	cout << i+1 << "번째 숫자 : ";
-		    	//cin >> retval[i];
-			}
-			//if((retval[0] == retval[1]) && (retval[1] == retval[2]))
+    	    cout << "답으로 사용할 ";
+    	    auto userNum{get_num()};
+			if((userNum[0] == userNum[1]) && (userNum[1] == userNum[2]))
 				exit = true;
 			if(exit)
 				break;
-    	    int strike = 0, ball = 0;
-			for(int i = 0; i <= 2; i++)
-		    	for(int i2 = 0; i2 <= 2; i2++)
-			//		if(comNum[i] == retval[i2])
-				    	if(i == i2)
-							strike++;
-		    			else
-							ball++;
+    	    auto strike = 0, ball = 0;
+			auto result = check_answer(comNum, userNum);
 			cout << strike << "스트라이크와 " << ball << "볼입니다!" << endl;
 			attempt++;
 			if(strike == 3)
