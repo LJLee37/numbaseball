@@ -7,9 +7,10 @@ public:
 	~AI_t();
 	//get input number from AI
 	vector<int> get_num();
+	void append(pair<vector<int>, vector<int>> oneHistory);
 private:
 	AI_t& operator= (AI_t&);
-
+	vector<pair<vector<int>, vector<int>>> history;
 };
 
 //function prototypes
@@ -19,7 +20,7 @@ vector<int> split_numbers(string rawData);
 const vector<int> gen_num();
 //get input number from user
 vector<int> get_num();
-//returns whether answer contains input numbers and whether they are in right position
+//returns strikes and balls
 vector<vector<bool>> check_answer(const vector<int>& comNum, vector<int>& input);
 //prints rule of number baseball
 void print_rule();
@@ -69,7 +70,25 @@ int main()
     cout <<"세 개의 숫자를 생성중입니다..."<<endl;
 	const auto comNum = gen_num();
     cout << "숫자 생성 완료"<<endl;
-	
+	auto isUser = true;
+	cout << "AI가 답을 맞춰볼까요? (Y | n) : ";
+	char sw;
+	cin >> sw;
+	switch (sw)
+	{
+	case 'Y':
+	case 'y':
+		isUser = false;
+		break;
+	case 'N':
+	case 'n':
+		isUser = true;
+	default:
+		cout << "잘못 입력하셨습니다. 사용자 입력으로 전환합니다." << endl;
+		isUser = true;
+		break;
+	}
+	AI_t AI;
 	while(1)
 	{
 		auto exit = false;
@@ -77,15 +96,27 @@ int main()
     	while(1)
     	{
     	    cout << "답으로 사용할 ";
-    	    auto userNum{get_num()};
-			if((userNum[0] == userNum[1]) && (userNum[1] == userNum[2]))
-				exit = true;
-			if(exit)
-				break;
+    	    vector<int> userNum;
+			if(isUser)
+			{
+				userNum = get_num();
+				if((userNum[0] == userNum[1]) && (userNum[1] == userNum[2])) 
+				{	
+					exit = true;
+					break;
+				}
+			}
+			else
+				userNum = AI.get_num();
+			
     	    auto strike = 0, ball = 0;
 			auto result = check_answer(comNum, userNum);
+			for (auto i : result[0]) if(i) strike ++;
+			for (auto i : result[1]) if(i) ball++;
 			cout << strike << "스트라이크와 " << ball << "볼입니다!" << endl;
 			attempt++;
+			if(!isUser) 
+				AI.append(make_pair(vector<int>{strike, ball}, userNum));
 			if(strike == 3)
 		    	break;
     	}
