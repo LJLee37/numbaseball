@@ -56,11 +56,42 @@ const vector<int> gen_num()
 vector<int> get_num()
 {
 	cout << "세 개의 숫자를 입력하세요 : ";
-	string tempInput;
-	getline(cin, tempInput);
-	
+	vector<int> retval;
+	while(retval.size() != 3)
+	{
+		string tempInput;
+		getline(cin, tempInput);
+		//cin.ignore(INT_MAX, '\n');
+		for (auto i : tempInput)
+		{
+			if('0' <= i && i <= '9')
+				retval.push_back(i - '0');
+			if(retval.size() == 3)
+				break;
+		}
+	}
+	return retval;
 }
-
+vector<vector<bool>> check_answer(const vector<int>& comNum, vector<int>& input)
+{
+	vector<bool> strike{false, false, false}, ball{false, false, false};
+	for (auto i : comNum)
+	{
+		auto id = distance(comNum.begin(), find(comNum.begin(), comNum.end(), i));
+		for (auto j : input)
+		{
+			auto jd = distance(input.begin(), find(input.begin(), input.end(), j));
+			if(i == j)
+			{
+				if(id == jd)
+					strike[id] = true;
+				else
+					ball[id] = true;
+			}
+		}
+	}
+	return {strike, ball};
+}
 
 //main
 int main()
@@ -83,47 +114,47 @@ int main()
 	case 'N':
 	case 'n':
 		isUser = true;
+		break;
 	default:
 		cout << "잘못 입력하셨습니다. 사용자 입력으로 전환합니다." << endl;
 		isUser = true;
 		break;
 	}
-	AI_t AI;
+	cin.ignore(INT_MAX, '\n');
+	//AI_t AI;
+	auto exit = false;
+	auto attempt = 0;
 	while(1)
 	{
-		auto exit = false;
-    	auto attempt = 0;
-    	while(1)
-    	{
-    	    cout << "답으로 사용할 ";
-    	    vector<int> userNum;
-			if(isUser)
-			{
-				userNum = get_num();
-				if((userNum[0] == userNum[1]) && (userNum[1] == userNum[2])) 
-				{	
-					exit = true;
-					break;
-				}
+		cout << "답으로 사용할 ";
+		vector<int> userNum;
+		if(isUser)
+		{
+			userNum = get_num();
+			if((userNum[0] == userNum[1]) && (userNum[1] == userNum[2])) 
+			{	
+				exit = true;
+				break;
 			}
-			else
-				userNum = AI.get_num();
-			
-    	    auto strike = 0, ball = 0;
-			auto result = check_answer(comNum, userNum);
-			for (auto i : result[0]) if(i) strike ++;
-			for (auto i : result[1]) if(i) ball++;
-			cout << strike << "스트라이크와 " << ball << "볼입니다!" << endl;
-			attempt++;
-			if(!isUser) 
-				AI.append(make_pair(vector<int>{strike, ball}, userNum));
-			if(strike == 3)
-		    	break;
-    	}
-		if(exit)
+		}
+		//else
+			//userNum = AI.get_num();
+		
+		auto strike = 0, ball = 0;
+		auto result = check_answer(comNum, userNum);
+		for (auto i : result[0]) if(i) strike ++;
+		for (auto i : result[1]) if(i) ball++;
+		cout << strike << "스트라이크와 " << ball << "볼입니다!" << endl;
+		attempt++;
+		//if(!isUser) 
+			//AI.append(make_pair(vector<int>{strike, ball}, userNum));
+		if(strike == 3)
 			break;
-    	cout << attempt << "번의 시도만에 성공했습니다!" << endl;
 	}
+	if(exit)
+		goto end;
+	cout << attempt << "번의 시도만에 성공했습니다!" << endl;
+	end:
 	cout << "종료합니다..." << endl;
 	return 0;
 }
