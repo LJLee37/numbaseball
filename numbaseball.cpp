@@ -1,4 +1,9 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <string>
+#include <cstdlib>
+#include <algorithm>
+#include <climits>
 using namespace std;
 //Data types
 class AI_t{
