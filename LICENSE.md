@@ -1,4 +1,4 @@
-# LJLee37's Open License
+# LJLee37 Open License
 
 numbaseball Copyright by LJLee37(ljlee3759@gmail.com), 2020
 
