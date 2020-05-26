@@ -4,4 +4,4 @@
 
 ## 라이센스
 
-LJLee37's Open License, [LICENSE](LICENSE)파일 참고.
+LJLee37's Open License, [LICENSE](LICENSE.md)파일 참고.
