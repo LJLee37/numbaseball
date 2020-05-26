@@ -107,24 +107,24 @@ int main()
     const auto comNum = gen_num();
     cout << "숫자 생성 완료"<<endl;
     auto isUser = true;
-    cout << "AI가 답을 맞춰볼까요? (Y | n) : ";
-    char sw;
-    cin >> sw;
-    switch (sw)
-    {
-    case 'Y':
-    case 'y':
-        isUser = false;
-        break;
-    case 'N':
-    case 'n':
-        isUser = true;
-        break;
-    default:
-        cout << "잘못 입력하셨습니다. 사용자 입력으로 전환합니다." << endl;
-        isUser = true;
-        break;
-    }
+    //cout << "AI가 답을 맞춰볼까요? (Y | n) : ";
+    //char sw;
+    //cin >> sw;
+    //switch (sw)
+    //{
+    //case 'Y':
+    //case 'y':
+    //    isUser = false;
+    //    break;
+    //case 'N':
+    //case 'n':
+    //    isUser = true;
+    //    break;
+    //default:
+    //    cout << "잘못 입력하셨습니다. 사용자 입력으로 전환합니다." << endl;
+    //    isUser = true;
+    //    break;
+    //}
     cin.ignore(INT_MAX, '\n');
     //AI_t AI;
     auto exit = false;
@@ -144,7 +144,6 @@ int main()
         }
         //else
             //userNum = AI.get_num();
-        
         auto strike = 0, ball = 0;
         auto result = check_answer(comNum, userNum);
         for (auto i : result[0]) if(i) strike ++;
