@@ -125,7 +125,7 @@ int main()
     //    isUser = true;
     //    break;
     //}
-    cin.ignore(INT_MAX, '\n');
+    //cin.ignore(INT_MAX, '\n');
     //AI_t AI;
     auto exit = false;
     auto attempt = 0;

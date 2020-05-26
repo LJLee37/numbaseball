@@ -1,0 +1,13 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AI_t	numbaseball.cpp	/^class AI_t{$/;"	c	file:
+check_answer	numbaseball.cpp	/^vector<vector<bool>> check_answer(const vector<int>& comNum, vector<int>& input)$/;"	f
+gen_num	numbaseball.cpp	/^const vector<int> gen_num()$/;"	f
+get_num	numbaseball.cpp	/^vector<int> get_num()$/;"	f
+history	numbaseball.cpp	/^    vector<pair<vector<int>, vector<int>>> history;$/;"	m	class:AI_t	file:
+main	numbaseball.cpp	/^int main()$/;"	f
+print_rule	numbaseball.cpp	/^void print_rule()$/;"	f
