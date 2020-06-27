@@ -98,6 +98,7 @@ vector<vector<bool>> check_answer(const vector<int>& comNum, vector<int>& input)
     return {strike, ball};
 }
 
+
 //main
 int main()
 {
