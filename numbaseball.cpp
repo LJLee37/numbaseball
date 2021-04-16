@@ -13,8 +13,9 @@ public:
     //get input number from AI
     vector<int> get_num();
     void append(pair<vector<int>, vector<int>> oneHistory);
+    
 private:
-    AI_t& operator= (AI_t&);
+    //AI_t& operator= (AI_t&);
     vector<pair<vector<int>, vector<int>>> history;
 };
 
@@ -31,6 +32,14 @@ vector<vector<bool>> check_answer(const vector<int>& comNum, vector<int>& input)
 void print_rule();
 
 //function definitions
+void AI_t::append(pair<vector<int>, vector<int>> oneHistory)
+{
+    history.push_back(oneHistory);
+}
+vector<int> AI_t::get_num()
+{
+
+}
 void print_rule()
 {
     cout << "서로 다른 세 개의 0부터 9까지의 숫자 세 개를 입력하여 정답을 맞히면 됩니다." << endl;
@@ -80,10 +89,10 @@ vector<int> get_num()
 vector<vector<bool>> check_answer(const vector<int>& comNum, vector<int>& input)
 {
     vector<bool> strike{false, false, false}, ball{false, false, false};
-    for (auto i : comNum)
+    for (auto& i : comNum)
     {
         auto id = distance(comNum.begin(), find(comNum.begin(), comNum.end(), i));
-        for (auto j : input)
+        for (auto& j : input)
         {
             auto jd = distance(input.begin(), find(input.begin(), input.end(), j));
             if(i == j)
@@ -147,8 +156,8 @@ int main()
             //userNum = AI.get_num();
         auto strike = 0, ball = 0;
         auto result = check_answer(comNum, userNum);
-        for (auto i : result[0]) if(i) strike ++;
-        for (auto i : result[1]) if(i) ball++;
+        for (const auto& i : result[0]) if(i) strike ++;
+        for (const auto& i : result[1]) if(i) ball++;
         cout << strike << "스트라이크와 " << ball << "볼입니다!" << endl;
         attempt++;
         //if(!isUser) 
